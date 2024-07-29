@@ -14,15 +14,37 @@ describe('Login Page', () => {
         const loginObj = new LoginPage();
         loginObj.clickSignIn();
         loginObj.elements.titleLoginPage().should('have.text', 'Customer Login')
-        //cy.get('title').should('have.text', 'Customer Login')
         loginObj.typeUsername(test.username);
         loginObj.typePassword(test.password);
         loginObj.clickLoginButton();
         
         const homeObj = new HomePage()
         homeObj.elements.titleHomePage().should('have.text', 'Home Page')
-        //cy.get('title').should('have.text', 'Home Page')
+
+        //---------------------------------
+
+        homeObj.selectWomenCloting();
+        homeObj.elements.titleHomePage().should('have.text', 'Women')
+        homeObj.clickHoddiesWomen();
+
+
+        //------- Select Product
+
+        homeObj.selectProductWomen();
+        homeObj.selectSize();
+        homeObj.selectColor();
+        //homeObj.selectQuality();
+        homeObj.clickAddToCart();
+
+        homeObj.clickCart();
+        homeObj.elements.productAdded().should('be.visible');
+
+        //--------Delete Product
+        homeObj.clickDeleteProduct();
+        homeObj.clickConfirmationDelete();
+        homeObj.elements.messageDeleteProd().should('be.visible');
     });
+
 
 
 });
